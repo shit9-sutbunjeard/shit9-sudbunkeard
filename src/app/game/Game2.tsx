@@ -14,22 +14,31 @@ export default function Game({
   const [computer, setComputer] = useState(0);
 
   useEffect(() => {
-    setComputer(Math.floor(Math.random() * 2));
+    setComputer(Math.floor(Math.random() * 3));
   }, []);
 
   function handleSubmit(playerSelect: number) {
-    console.log("Player selected:", playerSelect === 0 ? "Head" : "Tail");
-    console.log("Computer selected:", computer === 0 ? "Head" : "Tail");
+    const choices = ["Rock", "Paper", "Scissors"];
+    console.log("Player selected:", choices[playerSelect]);
+    console.log("Computer selected:", choices[computer]);
 
-    if (playerSelect === computer) {
-      alert("You win! 🏆 You guessed correctly!");
-    } else {
-      alert("You lose! 😢 Wrong guess!");
+  const isComputerWin =
+    (computer === 0 && playerSelect === 2) ||
+    (computer === 1 && playerSelect === 0) ||
+    (computer === 2 && playerSelect === 1);
+
+  if (isComputerWin) {
+      alert(`You lose! 😢 computer selected : ${choices[computer]}`);
+  } else if (computer === playerSelect) {
+      alert(`Draw! 🤝 Try again!, You both selected : ${choices[computer]}`);
+  } else {
+      alert(`You win! 🏆 Computer selected : ${choices[computer]}`);
       addVdoList();
-    }
-    setCount(5);
-    setGameDisplay(false);
   }
+
+  setCount(5);
+  setGameDisplay(false);
+}
 
   useEffect(() => {
     if (count <= 0) return;
@@ -52,24 +61,26 @@ export default function Game({
         <div className="inline-block bg-gray-200 rounded px-2 py-1">
   			<h2 className="text-black">count : {count}</h2>
 		</div>
-        <h1 className="text-2xl text-black font-bold mb-4 text-center">Head Shower Seal & Tail</h1>
-        <p className="text-black text-center">ชะตาแห่งแมวน้ำก้อยอาบน้ำฝักบัว 🐈🚿จะลงทัณฑ์แกเอ๊ง </p>
+        <h1 className="text-2xl text-black font-bold mb-4 text-center">lock pepper SeeSawSeen</h1>
+        <p className="text-black text-center">ชะตาแห่งนิ้ว จงสำแดงฤทธา ณ บัดนี้!</p>
         <div className="flex justify-center items-center gap-4">
           <button
             onClick={() => handleSubmit(0)}
-            className="bg-[#F7E247] w-50 h-50 rounded-full hover:scale-105"
+            className="bg-red-500 w-30 h-30 rounded-full hover:scale-105"
           >
             <Image className="object-cover " src={head} alt="Game Image" />
           </button>
           <button
             onClick={() => handleSubmit(1)}
-            className="bg-[#D9D9D9] w-50 h-50 rounded-full p-10 hover:scale-105"
+            className="bg-[#D9D9D9] w-30 h-30 rounded-full p-10 hover:scale-105"
           >
-            <Image
-              className=" object-cover"
-              src={fingerTail}
-              alt="Game Image"
-            />
+            <Image className=" object-cover" src={fingerTail} alt="Game Image" />
+          </button>
+          <button
+            onClick={() => handleSubmit(2)}
+            className="bg-[#D9D9D9] w-30 h-30 rounded-full p-10 hover:scale-105"
+          >
+            <Image className=" object-cover" src={fingerTail} alt="Game Image" />
           </button>
         </div>
       </div>

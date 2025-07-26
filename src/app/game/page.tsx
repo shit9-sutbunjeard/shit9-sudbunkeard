@@ -2,17 +2,21 @@
 
 import Image from "next/image";
 import bg from "../../../public/bg.jpg";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
 import Game1 from "./Game1";
+import Game2 from "./Game2";
+import Game3 from "./Game3";
 
 export default function Game() {
   const [name, setName] = useState("");
   const [time, setTime] = useState(0);
   const [isGameDisplay, setGameDisplay] = useState(false);
-  const [gameAppear, setGameAppear] = useState(100);
+  const [gameAppear, setGameAppear] = useState(10);
   const [videoId, setVideoId] = useState("paCPYrstBi8");
+  const [gameIndex, setGameIndex] = useState(0);
   const playerRef = useRef<any>(null);
+
   const [vdoList, setVideoList] = useState<string[]>([
     "kcT-i9xzC-",
     "IwzUs1IMdyQ",
@@ -39,8 +43,10 @@ export default function Game() {
 
   useEffect(() => {
     if (gameAppear <= 0) {
+      const randomIndex = Math.floor(Math.random() * 3); // 0 = Game1, 1 = Game2, 2 = Game3
+      setGameIndex(randomIndex);
       setGameDisplay(true);
-      setGameAppear(100);
+      setGameAppear(10);
     }
   }, [gameAppear]);
 
@@ -75,55 +81,51 @@ export default function Game() {
 
   useEffect(() => {
     if (vdoList.length <= 0) {
-      alert("No more videos available.You win");
+      alert("No more videos available. You win!");
     }
   }, [vdoList]);
 
   return (
     <div className="flex justify-center items-center h-screen w-full">
-      iCiXz9ejudw
-      {isGameDisplay && <Game1 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />}
-      <Image src={bg} alt="" className="absolute w-full h-full" />
+      {isGameDisplay && (
+        <>
+          {gameIndex === 0 && <Game1 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />}
+          {gameIndex === 1 && <Game2 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />}
+          {gameIndex === 2 && <Game3 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />}
+        </>
+      )}
+
+      <Image src={bg} alt="" className="absolute w-full h-full object-cover" />
       <div className="w-full h-full z-10 p-6 container mx-auto">
-        {/* <div className="flex w-full justify-between mb-6 ">
-          <div className="bg-white p-4 text-4xl text-black uppercase font-bold rounded-md h-fit">
-            <div className="flex">You are <p className="px-5 text-blue-500">{name}</p></div>
-            <p>Your time that you use as stupid: </p>
-			<p>Your Clip</p>
-			<p>Game Appear in</p>
-          </div>
-          <div className="bg-white p-4 text-4xl text-black uppercase font-bold rounded-md h-fit">
-            <p>/</p>
-            <div><p className="bg-red-500 rounded p-2 inline-block text-center">{Math.floor(time)}</p> seconds</div>
-			<p>	{vdoList.length}</p>
-            <p>{gameAppear} Seccond</p>
-          </div>
-        </div> */}
-		<div className="w-full mb-6 bg-white rounded-md	">
-			<table className="w-full text-3xl text-black uppercase font-bold border-separate border-spacing-2">
-				<tbody>
-				<tr>
-					<td>You are</td>
-					<td>{name}</td>
-				</tr>
-				<tr>
-					<td>Your time that you use as stupid</td>
-					<td><span className="bg-red-500 rounded p-2 inline-block text-center text-white">{Math.floor(time)}</span>{" "}seconds</td>
-				</tr>
-				<tr>
-					<td>Your Clip</td>
-					<td>{vdoList.length}</td>
-				</tr>
-				<tr>
-					<td>Game Appear in</td>
-					<td>{gameAppear} Seconds</td>
-				</tr>
-				</tbody>
-			</table>
-			</div>
+        <div className="w-full mb-6 bg-white rounded-md p-4">
+          <table className="w-full text-3xl text-black uppercase font-bold border-separate border-spacing-2">
+            <tbody>
+              <tr>
+                <td>You are</td>
+                <td>{name}</td>
+              </tr>
+              <tr>
+                <td>Your time that you use as stupid</td>
+                <td>
+                  <span className="bg-red-500 rounded p-2 inline-block text-center text-white">
+                    {Math.floor(time)}
+                  </span>{" "}
+                  seconds
+                </td>
+              </tr>
+              <tr>
+                <td>Your Clip</td>
+                <td>{vdoList.length}</td>
+              </tr>
+              <tr>
+                <td>Game Appear in</td>
+                <td>{gameAppear} Seconds</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <div className="w-full aspect-video bg-white rounded-md p-4 relative">
-          {/* <div className="w-full h-full absolute top-0 left-0"></div> */}
           <div className="w-full h-full absolute top-0 left-0 p-4">
             <YouTube
               className="w-full h-full"
@@ -133,10 +135,7 @@ export default function Game() {
                 height: "100%",
                 playerVars: {
                   autoplay: 1,
-                  // controls: 0,
-                  // mute: 1, // Mute helps with autoplay
-                  // loop: 1,
-                  playlist: "paCPYrstBi8", // Required for loop
+                  playlist: "paCPYrstBi8",
                   disablekb: 1,
                   fs: 0,
                   modestbranding: 1,
@@ -146,14 +145,11 @@ export default function Game() {
               }}
               onReady={(event) => {
                 playerRef.current = event.target;
-                console.log("YouTube player ready:", event.target);
-                // Force play when ready
                 setTimeout(() => {
                   event.target.playVideo();
                 }, 500);
               }}
               onPause={() => {
-                // Auto resume if paused
                 if (playerRef.current) {
                   playerRef.current.playVideo();
                 }
@@ -165,16 +161,10 @@ export default function Game() {
                 setVideoList((prev) => prev.filter((id) => id !== nextVideoId));
               }}
               onStateChange={(event) => {
-                console.log("State changed:", event.data);
-
-                if (event.data === -1 || event.data === 2 || event.data === 5) {
-                  console.log("Attempting to play video...");
+                if ([-1, 2, 5].includes(event.data)) {
                   event.target.playVideo();
-                  // window.location.reload()
                 }
-
                 if (event.data === 0) {
-                  // Video ended, restart
                   event.target.seekTo(0);
                   event.target.playVideo();
                 }

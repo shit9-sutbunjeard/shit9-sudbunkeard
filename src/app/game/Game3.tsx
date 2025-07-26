@@ -57,7 +57,7 @@ export default function Game({
         <div className="flex justify-center items-center gap-4">
           <button
             onClick={() => handleSubmit(0)}
-            className="bg-[#F7E247] w-50 h-50 rounded-full hover:scale-105"
+            className="bg-green-500 w-50 h-50 rounded-full hover:scale-105"
           >
             <Image className="object-cover " src={head} alt="Game Image" />
           </button>
