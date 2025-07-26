@@ -1,0 +1,146 @@
+"use client";
+
+import Image from "next/image";
+import bg from "../../../public/bg.jpg";
+import { use, useEffect, useRef, useState } from "react";
+import YouTube from "react-youtube";
+
+export default function Game() {
+  const [name, setName] = useState("");
+  const [time, setTime] = useState(0);
+  const [videoTime, setVideoTime] = useState(0);
+  const [videoDuration, setVideoDuration] = useState(0);
+  const [gameAppear, setGameAppear] = useState(10);
+  const [videoId, setVideoId] = useState("paCPYrstBi8");
+  const playerRef = useRef<any>(null);
+
+  const vdoList = [
+    "kcT-i9xzC-",
+    "IwzUs1IMdyQ",
+    "4fndeDfaWCg",
+    "dQw4w9WgXcQ",
+    "OQlByoPdG6c",
+    "DGzhiCJznFw",
+    "YQZEoZ4W0ac",
+    "W1AX0MdzK3M",
+    "z2jibq05FI4",
+    "iCiXz9ejudw",
+    "aAkMkVFwAoo",
+    "DzivgKuhNl4",
+    "jK-ThBGt23E",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (playerRef.current) {
+        const currentTime = playerRef.current.getCurrentTime();
+        const duration = playerRef.current.getDuration();
+        setVideoTime(currentTime);
+        setVideoDuration(duration);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const storedName = localStorage.getItem("name");
+    if (storedName) {
+      setName(storedName);
+    } else {
+      setName("Player");
+    }
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setGameAppear((prev) => prev - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      setTime(Math.floor((Date.now() - startTime) / 1000));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {});
+
+  return (
+    <div className="flex justify-center items-center h-screen w-full">
+      <Image src={bg} alt="" className="absolute w-full h-full" />
+      <div className="w-full h-full z-10 p-6 container mx-auto">
+        <div className="flex w-full justify-between mb-6">
+          <div className="bg-white p-4 text-4xl uppercase font-bold rounded-md h-fit">
+            <p>You are {name}</p>
+            <p>Video Time: {Math.floor(time)} seconds</p>
+          </div>
+          <div className="bg-white p-4 text-4xl uppercase font-bold rounded-md h-fit">
+            <p>Your Clip</p>
+            <p>Game Appear in {gameAppear}</p>
+          </div>
+        </div>
+        <div className="w-full aspect-video bg-white rounded-md p-4 relative">
+          <p className="mb-2">Your Clip {Math.floor(videoTime)} seconds</p>
+          {/* <div className="w-full h-full absolute top-0 left-0"></div> */}
+          <div className="w-full h-full absolute top-0 left-0 p-4">
+            <YouTube
+              className="w-full h-full"
+              style={{ width: "100%", height: "100%" }}
+              opts={{
+                width: "100%",
+                height: "100%",
+                playerVars: {
+                  autoplay: 1,
+                  // controls: 0,
+                  // mute: 1, // Mute helps with autoplay
+                  // loop: 1,
+                  playlist: "paCPYrstBi8", // Required for loop
+                  disablekb: 1,
+                  fs: 0,
+                  modestbranding: 1,
+                  rel: 0,
+                  showinfo: 0,
+                },
+              }}
+              onReady={(event) => {
+                playerRef.current = event.target;
+                console.log("YouTube player ready:", event.target);
+                // Force play when ready
+                setTimeout(() => {
+                  event.target.playVideo();
+                }, 500);
+              }}
+              onPause={() => {
+                // Auto resume if paused
+                if (playerRef.current) {
+                  playerRef.current.playVideo();
+                }
+              }}
+              onEnd={() => { 
+                setVideoId(vdoList[Math.floor(Math.random() * vdoList.length)]);
+              }}
+              onStateChange={(event) => {
+                console.log("State changed:", event.data);
+
+                if (event.data === -1 || event.data === 2 || event.data === 5) {
+                  console.log("Attempting to play video...");
+                  event.target.playVideo();
+                }
+
+                if (event.data === 0) {
+                  // Video ended, restart
+                  event.target.seekTo(0);
+                  event.target.playVideo();
+                }
+              }}
+              videoId={videoId}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
