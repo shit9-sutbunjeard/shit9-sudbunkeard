@@ -48,10 +48,12 @@ export default function Game({
   }, [count]);
   return (
     <div className="bg-white/20 backdrop-blur-2xl z-50 fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center shadow">
-      <div className="bg-white p-4 max-w-[500px] w-full">
-        <h2>{count}</h2>
-        <h1 className="text-2xl font-bold mb-4">Head Shower Seal & Tail</h1>
-        <p>ชะตาแห่งแมวน้ำก้อยอาบน้ำฝักบัว 🐈🚿จะลงทัณฑ์แกเอ๊ง </p>
+      <div className="bg-white p-4 max-w-[500px] w-full rounded p-2">
+        <div className="inline-block bg-gray-200 rounded px-2 py-1">
+  			<h2 className="text-black">count : {count}</h2>
+		</div>
+        <h1 className="text-2xl text-black font-bold mb-4 text-center">Head Shower Seal & Tail</h1>
+        <p className="text-black text-center">ชะตาแห่งแมวน้ำก้อยอาบน้ำฝักบัว 🐈🚿จะลงทัณฑ์แกเอ๊ง </p>
         <div className="flex justify-center items-center gap-4">
           <button
             onClick={() => handleSubmit(0)}

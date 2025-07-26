@@ -10,7 +10,7 @@ export default function Game() {
   const [name, setName] = useState("");
   const [time, setTime] = useState(0);
   const [isGameDisplay, setGameDisplay] = useState(false);
-  const [gameAppear, setGameAppear] = useState(10);
+  const [gameAppear, setGameAppear] = useState(100);
   const [videoId, setVideoId] = useState("paCPYrstBi8");
   const playerRef = useRef<any>(null);
   const [vdoList, setVideoList] = useState<string[]>([
@@ -40,7 +40,7 @@ export default function Game() {
   useEffect(() => {
     if (gameAppear <= 0) {
       setGameDisplay(true);
-      setGameAppear(10);
+      setGameAppear(100);
     }
   }, [gameAppear]);
 
@@ -85,16 +85,43 @@ export default function Game() {
       {isGameDisplay && <Game1 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />}
       <Image src={bg} alt="" className="absolute w-full h-full" />
       <div className="w-full h-full z-10 p-6 container mx-auto">
-        <div className="flex w-full justify-between mb-6">
-          <div className="bg-white p-4 text-4xl uppercase font-bold rounded-md h-fit">
-            <p>You are {name}</p>
-            <p>Your time that you use as stupid: {Math.floor(time)} seconds</p>
+        {/* <div className="flex w-full justify-between mb-6 ">
+          <div className="bg-white p-4 text-4xl text-black uppercase font-bold rounded-md h-fit">
+            <div className="flex">You are <p className="px-5 text-blue-500">{name}</p></div>
+            <p>Your time that you use as stupid: </p>
+			<p>Your Clip</p>
+			<p>Game Appear in</p>
           </div>
-          <div className="bg-white p-4 text-4xl uppercase font-bold rounded-md h-fit">
-            <p>Your Clip {vdoList.length}</p>
-            <p>Game Appear in {gameAppear}</p>
+          <div className="bg-white p-4 text-4xl text-black uppercase font-bold rounded-md h-fit">
+            <p>/</p>
+            <div><p className="bg-red-500 rounded p-2 inline-block text-center">{Math.floor(time)}</p> seconds</div>
+			<p>	{vdoList.length}</p>
+            <p>{gameAppear} Seccond</p>
           </div>
-        </div>
+        </div> */}
+		<div className="w-full mb-6 bg-white rounded-md	">
+			<table className="w-full text-3xl text-black uppercase font-bold border-separate border-spacing-2">
+				<tbody>
+				<tr>
+					<td>You are</td>
+					<td>{name}</td>
+				</tr>
+				<tr>
+					<td>Your time that you use as stupid</td>
+					<td><span className="bg-red-500 rounded p-2 inline-block text-center text-white">{Math.floor(time)}</span>{" "}seconds</td>
+				</tr>
+				<tr>
+					<td>Your Clip</td>
+					<td>{vdoList.length}</td>
+				</tr>
+				<tr>
+					<td>Game Appear in</td>
+					<td>{gameAppear} Seconds</td>
+				</tr>
+				</tbody>
+			</table>
+			</div>
+
         <div className="w-full aspect-video bg-white rounded-md p-4 relative">
           {/* <div className="w-full h-full absolute top-0 left-0"></div> */}
           <div className="w-full h-full absolute top-0 left-0 p-4">
