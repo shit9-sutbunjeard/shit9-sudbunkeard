@@ -1,5 +1,7 @@
 import Image from "next/image";
-import head from "../../../public/ht/head.png";
+import Rock from "../../../public/rock.jpg"
+import Paper from "../../../public/paper.jpg"
+import Sisor from "../../../public/siscer.jpg"
 import fingerTail from "../../../public/ht/fingertail.jpg";
 import { use, useEffect, useState } from "react";
 
@@ -66,21 +68,21 @@ export default function Game({
         <div className="flex justify-center items-center gap-4">
           <button
             onClick={() => handleSubmit(0)}
-            className="bg-red-500 w-30 h-30 rounded-full hover:scale-105"
+            className="bg-red-500 w-30 h-30  hover:scale-105"
           >
-            <Image className="object-cover " src={head} alt="Game Image" />
+            <Image className="object-cover " src={Rock} alt="Game Image" />
           </button>
           <button
             onClick={() => handleSubmit(1)}
-            className="bg-[#D9D9D9] w-30 h-30 rounded-full p-10 hover:scale-105"
+            className="bg-[#D9D9D9] w-30 h-30  hover:scale-105"
           >
-            <Image className=" object-cover" src={fingerTail} alt="Game Image" />
+            <Image className=" object-cover" src={Paper} alt="Game Image" />
           </button>
           <button
             onClick={() => handleSubmit(2)}
-            className="bg-[#D9D9D9] w-30 h-30 rounded-full p-10 hover:scale-105"
+            className="bg-[#D9D9D9] w-30 h-30 hover:scale-105"
           >
-            <Image className=" object-cover" src={fingerTail} alt="Game Image" />
+            <Image className=" object-cover" src={Sisor} alt="Game Image" />
           </button>
         </div>
       </div>
