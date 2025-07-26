@@ -57,7 +57,7 @@ export default function Game({
   }, [count]);
   return (
     <div className="bg-gray-500/20 backdrop-blur-2xl z-50 fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center shadow">
-      <div className="bg-white p-6 max-w-[500px] w-full rounded-2xl p-2">
+      <div className="bg-white p-6 max-w-[500px] w-full rounded-2xl">
         <div className="inline-block bg-gray-200 rounded px-2 py-1">
   			<h2 className="text-black">count : {count}</h2>
 		</div>

@@ -7,13 +7,34 @@ import YouTube from "react-youtube";
 import Game1 from "./Game1";
 import Game2 from "./Game2";
 import Game3 from "./Game3";
+import Game4 from "./Game4";
+import Game5 from "./Game5";
+import Game6 from "./Game6";
+
+const database = [
+  "kcT-i9xzC-8",
+  "IwzUs1IMdyQ",
+  "4fndeDfaWCg",
+  "dQw4w9WgXcQ",
+  "OQlByoPdG6c",
+  "DGzhiCJznFw",
+  "YQZEoZ4W0ac",
+  "W1AX0MdzK3M",
+  "z2jibq05FI4",
+  "iCiXz9ejudw",
+  "aAkMkVFwAoo",
+  "DzivgKuhNl4",
+  "jK-ThBGt23E",
+];
 
 export default function Game() {
   const [name, setName] = useState("");
   const [time, setTime] = useState(0);
   const [isGameDisplay, setGameDisplay] = useState(false);
   const [gameAppear, setGameAppear] = useState(10);
-  const [videoId, setVideoId] = useState("paCPYrstBi8");
+  const [videoId, setVideoId] = useState(
+    database[Math.floor(Math.random() * database.length)]
+  );
   const [gameIndex, setGameIndex] = useState(0);
   const playerRef = useRef<any>(null);
 
@@ -25,28 +46,12 @@ export default function Game() {
     "OQlByoPdG6c",
   ]);
 
-  const database = [
-    "kcT-i9xzC-",
-    "IwzUs1IMdyQ",
-    "4fndeDfaWCg",
-    "dQw4w9WgXcQ",
-    "OQlByoPdG6c",
-    "DGzhiCJznFw",
-    "YQZEoZ4W0ac",
-    "W1AX0MdzK3M",
-    "z2jibq05FI4",
-    "iCiXz9ejudw",
-    "aAkMkVFwAoo",
-    "DzivgKuhNl4",
-    "jK-ThBGt23E",
-  ];
-
   useEffect(() => {
     if (gameAppear <= 0) {
       const randomIndex = Math.floor(Math.random() * 3); // 0 = Game1, 1 = Game2, 2 = Game3
       setGameIndex(randomIndex);
       setGameDisplay(true);
-      setGameAppear(10);
+      setGameAppear(10); // Reset the timer when game appears
     }
   }, [gameAppear]);
 
@@ -65,11 +70,13 @@ export default function Game() {
   }, []);
 
   useEffect(() => {
+    if (isGameDisplay) return; // Don't countdown while game is being played
+
     const interval = setInterval(() => {
       setGameAppear((prev) => prev - 1);
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isGameDisplay]);
 
   useEffect(() => {
     const startTime = Date.now();
@@ -89,9 +96,12 @@ export default function Game() {
     <div className="flex justify-center items-center h-screen w-full">
       {isGameDisplay && (
         <>
-          {gameIndex === 0 && <Game1 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />}
+          {/* {gameIndex === 0 && <Game1 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />}
           {gameIndex === 1 && <Game2 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />}
-          {gameIndex === 2 && <Game3 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />}
+          {gameIndex === 2 && <Game3 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />} */}
+          {gameIndex && (
+            <Game6 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />
+          )}
         </>
       )}
 
@@ -135,7 +145,6 @@ export default function Game() {
                 height: "100%",
                 playerVars: {
                   autoplay: 1,
-                  playlist: "paCPYrstBi8",
                   disablekb: 1,
                   fs: 0,
                   modestbranding: 1,

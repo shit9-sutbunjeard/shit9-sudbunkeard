@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Charm } from "next/font/google";
+import Local from "next/font/local";
 import "./globals.css";
-
+ 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -10,6 +11,17 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const lineSeed = Local({
+  src: "../../public/fonts/LINESeedSansTH_W_Bd.woff2",
+  variable: "--font-line-seed",
+})
+
+const someThaiFont = Charm({
+  weight: "400",
+  subsets: ["thai"],
+  variable: "--font-srisakdi",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${lineSeed.variable} ${geistMono.variable} ${lineSeed.className} antialiased`}
       >
         {children}
       </body>
