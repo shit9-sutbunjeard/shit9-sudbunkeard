@@ -6,6 +6,7 @@ import { use, useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
 
 export default function Game() {
+
   const [name, setName] = useState("");
   const [time, setTime] = useState(0);
   const [videoTime, setVideoTime] = useState(0);
@@ -13,8 +14,15 @@ export default function Game() {
   const [gameAppear, setGameAppear] = useState(10);
   const [videoId, setVideoId] = useState("paCPYrstBi8");
   const playerRef = useRef<any>(null);
+  const [vdoList, setVideoList] = useState<string[]>([
+    "kcT-i9xzC-",
+    "IwzUs1IMdyQ",
+    "4fndeDfaWCg",
+    "dQw4w9WgXcQ",
+    "OQlByoPdG6c",
+  ]);
 
-  const vdoList = [
+  const database = [
     "kcT-i9xzC-",
     "IwzUs1IMdyQ",
     "4fndeDfaWCg",
@@ -29,6 +37,10 @@ export default function Game() {
     "DzivgKuhNl4",
     "jK-ThBGt23E",
   ];
+
+  function addVdoList(newVideoId: string) {
+      setVideoList((prevList) => [...prevList, newVideoId]);
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -66,7 +78,11 @@ export default function Game() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {});
+  useEffect(() => {
+    if (vdoList.length <= 0) {
+      alert("No more videos available.You win");
+    }
+  },[vdoList])
 
   return (
     <div className="flex justify-center items-center h-screen w-full">
@@ -78,7 +94,7 @@ export default function Game() {
             <p>Video Time: {Math.floor(time)} seconds</p>
           </div>
           <div className="bg-white p-4 text-4xl uppercase font-bold rounded-md h-fit">
-            <p>Your Clip</p>
+            <p>Your Clip { vdoList.length}</p>
             <p>Game Appear in {gameAppear}</p>
           </div>
         </div>
@@ -119,8 +135,10 @@ export default function Game() {
                   playerRef.current.playVideo();
                 }
               }}
-              onEnd={() => { 
-                setVideoId(vdoList[Math.floor(Math.random() * vdoList.length)]);
+              onEnd={() => {
+                const nextVideoId = vdoList[Math.floor(Math.random() * vdoList.length)];
+                setVideoId(nextVideoId);
+                setVideoList((prev) => prev.filter((id) => id !== nextVideoId));
               }}
               onStateChange={(event) => {
                 console.log("State changed:", event.data);
@@ -128,6 +146,7 @@ export default function Game() {
                 if (event.data === -1 || event.data === 2 || event.data === 5) {
                   console.log("Attempting to play video...");
                   event.target.playVideo();
+                  // window.location.reload()
                 }
 
                 if (event.data === 0) {
