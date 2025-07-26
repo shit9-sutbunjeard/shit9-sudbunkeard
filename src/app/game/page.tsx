@@ -4,13 +4,11 @@ import Image from "next/image";
 import bg from "../../../public/bg.jpg";
 import { use, useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
+import Game1 from "./Game1";
 
 export default function Game() {
-
   const [name, setName] = useState("");
   const [time, setTime] = useState(0);
-  const [videoTime, setVideoTime] = useState(0);
-  const [videoDuration, setVideoDuration] = useState(0);
   const [gameAppear, setGameAppear] = useState(10);
   const [videoId, setVideoId] = useState("paCPYrstBi8");
   const playerRef = useRef<any>(null);
@@ -38,21 +36,10 @@ export default function Game() {
     "jK-ThBGt23E",
   ];
 
-  function addVdoList(newVideoId: string) {
-      setVideoList((prevList) => [...prevList, newVideoId]);
+  function addVdoList() {
+    const newVideoId = database[Math.floor(Math.random() * database.length)];
+    setVideoList((prevList) => [...prevList, newVideoId]);
   }
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (playerRef.current) {
-        const currentTime = playerRef.current.getCurrentTime();
-        const duration = playerRef.current.getDuration();
-        setVideoTime(currentTime);
-        setVideoDuration(duration);
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     const storedName = localStorage.getItem("name");
@@ -82,24 +69,25 @@ export default function Game() {
     if (vdoList.length <= 0) {
       alert("No more videos available.You win");
     }
-  },[vdoList])
+  }, [vdoList]);
 
   return (
     <div className="flex justify-center items-center h-screen w-full">
+      iCiXz9ejudw
+      <Game1 />
       <Image src={bg} alt="" className="absolute w-full h-full" />
       <div className="w-full h-full z-10 p-6 container mx-auto">
         <div className="flex w-full justify-between mb-6">
           <div className="bg-white p-4 text-4xl uppercase font-bold rounded-md h-fit">
             <p>You are {name}</p>
-            <p>Video Time: {Math.floor(time)} seconds</p>
+            <p>Your time that you use as stupid: {Math.floor(time)} seconds</p>
           </div>
           <div className="bg-white p-4 text-4xl uppercase font-bold rounded-md h-fit">
-            <p>Your Clip { vdoList.length}</p>
+            <p>Your Clip {vdoList.length}</p>
             <p>Game Appear in {gameAppear}</p>
           </div>
         </div>
         <div className="w-full aspect-video bg-white rounded-md p-4 relative">
-          <p className="mb-2">Your Clip {Math.floor(videoTime)} seconds</p>
           {/* <div className="w-full h-full absolute top-0 left-0"></div> */}
           <div className="w-full h-full absolute top-0 left-0 p-4">
             <YouTube
@@ -136,7 +124,8 @@ export default function Game() {
                 }
               }}
               onEnd={() => {
-                const nextVideoId = vdoList[Math.floor(Math.random() * vdoList.length)];
+                const nextVideoId =
+                  vdoList[Math.floor(Math.random() * vdoList.length)];
                 setVideoId(nextVideoId);
                 setVideoList((prev) => prev.filter((id) => id !== nextVideoId));
               }}
