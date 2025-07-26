@@ -10,6 +10,7 @@ import Game3 from "./Game3";
 import Game4 from "./Game4";
 import Game5 from "./Game5";
 import Game6 from "./Game6";
+import Game7 from "./Game7";
 
 const database = [
   "kcT-i9xzC-8",
@@ -100,7 +101,7 @@ export default function Game() {
           {gameIndex === 1 && <Game2 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />}
           {gameIndex === 2 && <Game3 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />} */}
           {gameIndex && (
-            <Game6 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />
+            <Game7  setGameDisplay={setGameDisplay} addVdoList={addVdoList} />
           )}
         </>
       )}

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { use, useEffect, useState } from "react";
 
-import fw1 from "../../../public/forcewrong/lose1_1.jpg";
-import fw2 from "../../../public/forcewrong/lose1_2.jpg";
-import fw3 from "../../../public/forcewrong/lose1_3.jpg";
-import fw4 from "../../../public/forcewrong/lose1_4.jpg";
+import fw1 from "../../../public/fl21.jpg";
+import fw2 from "../../../public/fl22.jpg";
+import fw3 from "../../../public/fll23.jpg";
+import fw4 from "../../../public/fl24.jpg";
 
 export default function Game({
   setGameDisplay,
