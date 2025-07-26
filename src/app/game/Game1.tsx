@@ -1,13 +1,38 @@
 import Image from "next/image";
 import head from "../../../public/ht/head.png";
 import fingerTail from "../../../public/ht/fingertail.jpg";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
-export default function Game() {
+export default function Game({
+  setGameDisplay,
+  addVdoList,
+}: {
+  setGameDisplay: (display: boolean) => void;
+  addVdoList: () => void;
+}) {
   const [count, setCount] = useState(5);
+  const [computer, setComputer] = useState(0);
 
   useEffect(() => {
-    if (count <= 0) return; // Don't start interval if count is already 0
+    setComputer(Math.floor(Math.random() * 2));
+  }, []);
+
+  function handleSubmit(playerSelect: number) {
+    console.log("Player selected:", playerSelect === 0 ? "Head" : "Tail");
+    console.log("Computer selected:", computer === 0 ? "Head" : "Tail");
+
+    if (playerSelect === computer) {
+      alert("You win! 🏆 You guessed correctly!");
+    } else {
+      alert("You lose! 😢 Wrong guess!");
+      addVdoList();
+    }
+    setCount(5);
+    setGameDisplay(false);
+  }
+
+  useEffect(() => {
+    if (count <= 0) return;
 
     const interval = setInterval(() => {
       setCount((prev) => {
@@ -28,10 +53,16 @@ export default function Game() {
         <h1 className="text-2xl font-bold mb-4">Head Shower Seal & Tail</h1>
         <p>ชะตาแห่งแมวน้ำก้อยอาบน้ำฝักบัว 🐈🚿จะลงทัณฑ์แกเอ๊ง </p>
         <div className="flex justify-center items-center gap-4">
-          <button className="bg-[#F7E247] w-50 h-50 rounded-full hover:scale-105">
+          <button
+            onClick={() => handleSubmit(0)}
+            className="bg-[#F7E247] w-50 h-50 rounded-full hover:scale-105"
+          >
             <Image className="object-cover " src={head} alt="Game Image" />
           </button>
-          <button className="bg-[#D9D9D9] w-50 h-50 rounded-full p-10 hover:scale-105">
+          <button
+            onClick={() => handleSubmit(1)}
+            className="bg-[#D9D9D9] w-50 h-50 rounded-full p-10 hover:scale-105"
+          >
             <Image
               className=" object-cover"
               src={fingerTail}

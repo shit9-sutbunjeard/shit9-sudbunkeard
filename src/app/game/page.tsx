@@ -9,6 +9,7 @@ import Game1 from "./Game1";
 export default function Game() {
   const [name, setName] = useState("");
   const [time, setTime] = useState(0);
+  const [isGameDisplay, setGameDisplay] = useState(false);
   const [gameAppear, setGameAppear] = useState(10);
   const [videoId, setVideoId] = useState("paCPYrstBi8");
   const playerRef = useRef<any>(null);
@@ -35,6 +36,13 @@ export default function Game() {
     "DzivgKuhNl4",
     "jK-ThBGt23E",
   ];
+
+  useEffect(() => {
+    if (gameAppear <= 0) {
+      setGameDisplay(true);
+      setGameAppear(10);
+    }
+  }, [gameAppear]);
 
   function addVdoList() {
     const newVideoId = database[Math.floor(Math.random() * database.length)];
@@ -74,7 +82,7 @@ export default function Game() {
   return (
     <div className="flex justify-center items-center h-screen w-full">
       iCiXz9ejudw
-      <Game1 />
+      {isGameDisplay && <Game1 setGameDisplay={setGameDisplay} addVdoList={addVdoList} />}
       <Image src={bg} alt="" className="absolute w-full h-full" />
       <div className="w-full h-full z-10 p-6 container mx-auto">
         <div className="flex w-full justify-between mb-6">
