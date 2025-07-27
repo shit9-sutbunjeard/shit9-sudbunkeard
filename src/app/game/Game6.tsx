@@ -12,7 +12,7 @@ export default function Game({
   setGameDisplay: (display: boolean) => void;
   addVdoList: () => void;
 }) {
-  const [count, setCount] = useState(30); // 30 seconds for typing
+  const [count, setCount] = useState(120);
   const [userInput, setUserInput] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
   const [gameFinished, setGameFinished] = useState(false);
@@ -23,7 +23,7 @@ export default function Game({
   const startGame = () => {
     setGameStarted(true);
     setUserInput("");
-    setCount(30);
+    setCount(120);
     setGameFinished(false);
   };
 
