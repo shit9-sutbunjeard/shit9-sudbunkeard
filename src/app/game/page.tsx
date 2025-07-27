@@ -44,7 +44,7 @@ export default function Game() {
   const [name, setName] = useState("");
   const [time, setTime] = useState(0);
   const [isGameDisplay, setGameDisplay] = useState(false);
-  const [gameAppear, setGameAppear] = useState(100);
+  const [gameAppear, setGameAppear] = useState(20);
   const [videoId, setVideoId] = useState(
     database[Math.floor(Math.random() * database.length)]
   );
@@ -70,7 +70,7 @@ export default function Game() {
       const randomIndex = Math.floor(Math.random() * 7); // 0 = Game1, 1 = Game2, 2 = Game3
       setGameIndex(randomIndex);
       setGameDisplay(true);
-      setGameAppear(100); // Reset the timer when game appears
+      setGameAppear(20); // Reset the timer when game appears
     }
   }, [gameAppear, showWinPage]);
 
@@ -272,8 +272,13 @@ export default function Game() {
             />
           </div>
         </div>
-		<div className="w-full h-20">
-
+		<div className="w-full mb-6 rounded-md p-4 mt-12">
+		  <div 
+		  	className="w-full text-9xl font-bold relative text-black text-center"
+  			style={{ WebkitTextStroke: "2px white", animation: "blink 5s steps(1, start) infinite", }}
+		  >
+  			Stupido Hackettino ๙
+		  </div>
 		</div>
       </div>
 

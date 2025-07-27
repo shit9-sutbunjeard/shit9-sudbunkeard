@@ -59,4 +59,28 @@ body {
         background-color: #ff0000;
       }
     }
+
+ @keyframes blink {
+    0%, 100% {
+      color: black;
+    }
+    15% {
+      color: rgb(245, 0, 245)
+    }
+	30% {
+      color: blue
+    }
+	45% {
+      color: rgb(0, 165, 0)
+    }
+	60% {
+      color: rgb(246, 255, 0)
+    }
+	75% {
+      color: rgb(255, 115, 0)
+    }
+	90% {
+      color: red
+    }
+  }
 }
