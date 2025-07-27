@@ -68,19 +68,19 @@ export default function Game({
         <div className="flex justify-center items-center gap-4">
           <button
             onClick={() => handleSubmit(0)}
-            className="bg-red-500 w-30 h-30  hover:scale-105"
+            className="border-5 border-gray-400 hover:border-sky-500 w-30 h-30  hover:scale-105"
           >
             <Image className="object-cover " src={Rock} alt="Game Image" />
           </button>
           <button
             onClick={() => handleSubmit(1)}
-            className="bg-[#D9D9D9] w-30 h-30  hover:scale-105"
+            className="border-5 border-gray-400 hover:border-sky-500 bg-[#D9D9D9] w-30 h-30  hover:scale-105"
           >
             <Image className=" object-cover" src={Paper} alt="Game Image" />
           </button>
           <button
             onClick={() => handleSubmit(2)}
-            className="bg-[#D9D9D9] w-30 h-30 hover:scale-105"
+            className="border-5 border-gray-400 hover:border-sky-500 bg-[#D9D9D9] w-30 h-30 hover:scale-105"
           >
             <Image className=" object-cover" src={Sisor} alt="Game Image" />
           </button>
