@@ -40,6 +40,19 @@ export default function RootLayout({
         className={`${geistSans.variable} ${lineSeed.variable} ${geistMono.variable} ${lineSeed.className} antialiased`}
       >
         {children}
+		<div className="fixed top-0 left-0 w-full h-12 z-50 overflow-hidden border-b-4 animate-[bgLoop_10s_linear_infinite] text-black flex items-center">
+  			<div className=" font-bold whitespace-nowrap text-xl px-10 animate-[marquee_10s_linear_infinite]">
+    			🌈 SPACE FOR SPONSOR 🌈 🌈 SPACE FOR SPONSOR 🌈 🌈 SPACE FOR SPONSOR 🌈
+ 			</div>
+		</div>
+		<img src="/twerk.gif" alt="poomtwerk" className="fixed bottom-1 right-1 w-120 h-auto z-50 drop-shadow-lg" />
+		<img src="/twerk.gif" alt="poomtwerk" className="fixed bottom-1 left-1 w-120 h-auto z-50 drop-shadow-lg scale-x-[-1]" />
+		<div className="fixed bottom-0 left-0 w-full h-12 z-50 overflow-hidden border-t-4 animate-[bgLoop_10s_linear_infinite] text-black flex items-center">
+  			<div className="font-bold whitespace-nowrap text-xl px-10 animate-[marquee_10s_linear_infinite]">
+    			🌈 SPACE FOR SPONSOR 🌈 🌈 SPACE FOR SPONSOR 🌈 🌈 SPACE FOR SPONSOR 🌈
+ 			</div>
+		</div>
+		
       </body>
     </html>
   );

@@ -44,7 +44,7 @@ export default function Game() {
   const [name, setName] = useState("");
   const [time, setTime] = useState(0);
   const [isGameDisplay, setGameDisplay] = useState(false);
-  const [gameAppear, setGameAppear] = useState(10);
+  const [gameAppear, setGameAppear] = useState(100);
   const [videoId, setVideoId] = useState(
     database[Math.floor(Math.random() * database.length)]
   );
@@ -70,7 +70,7 @@ export default function Game() {
       const randomIndex = Math.floor(Math.random() * 7); // 0 = Game1, 1 = Game2, 2 = Game3
       setGameIndex(randomIndex);
       setGameDisplay(true);
-      setGameAppear(10); // Reset the timer when game appears
+      setGameAppear(100); // Reset the timer when game appears
     }
   }, [gameAppear, showWinPage]);
 
@@ -174,7 +174,8 @@ export default function Game() {
 
       <Image src={bg} alt="" className="absolute w-full h-full object-cover" />
       <div className="w-full h-full z-10 p-6 container mx-auto">
-        <div className="w-full mb-6 bg-white rounded-md p-4">
+
+        <div className="w-full mb-6 bg-white rounded-md p-4 mt-12">
           <table className="w-full text-3xl text-black uppercase font-bold border-separate border-spacing-2">
             <tbody>
               <tr>
@@ -271,6 +272,9 @@ export default function Game() {
             />
           </div>
         </div>
+		<div className="w-full h-20">
+
+		</div>
       </div>
 
       {/* Cheat Panel */}
